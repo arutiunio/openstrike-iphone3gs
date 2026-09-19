@@ -6,6 +6,11 @@ The goal is to run OpenStrike natively on Apple's 2009 iPhone 3GS using ARMv7, P
 
 > **Current status:** working on real hardware. The game boots, loads a cooked GoldSrc map, renders the 3D world, runs the OpenStrike simulation and accepts multi-touch gameplay input.
 
+
+## Build guide
+
+For the complete step-by-step process used on the real device, including the ARMv7 Rust build, P3D cooking, GLES2 setup, Mach-O PAK alignment fix, deploy and launch commands, see [BUILDING.md](BUILDING.md).
+
 ## Tested target
 
 - iPhone 3GS
