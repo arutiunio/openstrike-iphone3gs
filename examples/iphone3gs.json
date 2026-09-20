@@ -1,0 +1,14 @@
+{
+  "id": "openstrike-iphone3gs",
+  "projectRoot": ".",
+  "manifest": "pocket.iphone3gs.json",
+  "bundleId": "dev.pocket-stack.openstrike.iphone3gs",
+  "bundleName": "OpenStrike3GS.app",
+  "executable": "OpenStrike3GS",
+  "title": "OpenStrike",
+  "scheme": "openstrike-iphone3gs",
+  "receiptSlug": "openstrike-iphone3gs",
+  "actionName": "openstrike_action",
+  "svcWire": false,
+  "keepAwake": true
+}
