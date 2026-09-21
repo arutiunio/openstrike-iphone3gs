@@ -1,0 +1,32 @@
+name: Publish v0.1.0-alpha
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/publish-v0.1.0-alpha.yml
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Create prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if ! gh release view v0.1.0-alpha >/dev/null 2>&1; then
+            gh release create v0.1.0-alpha \
+              --target "$GITHUB_SHA" \
+              --title "OpenStrike for iPhone 3GS — v0.1.0-alpha" \
+              --notes-file RELEASE_NOTES_v0.1.0-alpha.md \
+              --prerelease
+          fi
+          gh release upload v0.1.0-alpha SHA256SUMS.txt --clobber
