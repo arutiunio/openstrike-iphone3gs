@@ -1,0 +1,32 @@
+name: Upload v0.1.0-alpha IPA
+
+on:
+  push:
+    branches:
+      - release-upload-v0.1.0-alpha
+    paths:
+      - .release-assets/v0.1.0-alpha.ready
+
+permissions:
+  contents: write
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out staging branch
+        uses: actions/checkout@v4
+
+      - name: Reassemble and verify IPA
+        run: |
+          set -euo pipefail
+          cat .release-assets/OpenStrike3GS-v0.1.0-alpha.ipa.b64.part* > /tmp/OpenStrike3GS-v0.1.0-alpha.ipa.b64
+          base64 -d /tmp/OpenStrike3GS-v0.1.0-alpha.ipa.b64 > OpenStrike3GS-v0.1.0-alpha.ipa
+          echo "26f70d8d1e71ce8259587dd2331cbf102eea81d8430768e92900b69ff8653d20  OpenStrike3GS-v0.1.0-alpha.ipa" | sha256sum -c -
+
+      - name: Upload IPA to existing prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release upload v0.1.0-alpha OpenStrike3GS-v0.1.0-alpha.ipa --clobber
